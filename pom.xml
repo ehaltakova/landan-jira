@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.example.dropwizard</groupId>
-	<artifactId>dropwizard-test-app</artifactId>
+	<artifactId>landan-jira</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
-	<name>dropwizard-test-app</name>
+	<name>landan-jira</name>
 
 	<properties>
 		<dropwizard.version>1.0.2</dropwizard.version>
@@ -46,22 +46,7 @@
 		</dependency>
 		<dependency>
 		    <groupId>io.dropwizard</groupId>
-		    <artifactId>dropwizard-forms</artifactId>
-		    <version>${dropwizard.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>io.dropwizard</groupId>
-		    <artifactId>dropwizard-views-mustache</artifactId>
-		    <version>${dropwizard.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>io.dropwizard</groupId>
 		    <artifactId>dropwizard-auth</artifactId>
-		    <version>${dropwizard.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>io.dropwizard</groupId>
-		    <artifactId>dropwizard-client</artifactId>
 		    <version>${dropwizard.version}</version>
 		</dependency>
 		<dependency>
@@ -126,7 +111,7 @@
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.example.dropwizard.test.salssa.SalssaApp</mainClass>
+									<mainClass>bg.nemetschek.landan.LandanApp</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>

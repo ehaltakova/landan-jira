@@ -12,28 +12,28 @@ import org.slf4j.LoggerFactory;
 
 import com.codahale.metrics.annotation.Timed;
 
-import bg.nemetschek.landan.api.SlideAlbum;
-import bg.nemetschek.landan.db.SlideAlbumDAO;
+import bg.nemetschek.landan.api.Plane;
+import bg.nemetschek.landan.db.PlanesDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 
 @Path("/slidealbums")
 @Produces(MediaType.APPLICATION_JSON)
-public class SlideAlbumsResource {
+public class PlanesResource {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(SlideAlbumsResource.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PlanesResource.class);
 
-	private final SlideAlbumDAO dao;
+	private final PlanesDAO dao;
 	
-	public SlideAlbumsResource(SlideAlbumDAO dao) {
+	public PlanesResource(PlanesDAO dao) {
 		this.dao = dao;
 	}
 	
 	@GET
     @Timed
     @UnitOfWork
-    public List<SlideAlbum> getSlideAlbums() {
+    public List<Plane> getSlideAlbums() {
 		LOGGER.debug("get slidealbums");
-		List<SlideAlbum> slidealbums = dao.getSlideAlbums();
-		return slidealbums;
+		List<Plane> planes = dao.getPlanes();
+		return planes;
 	}
 }

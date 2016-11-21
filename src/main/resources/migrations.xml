@@ -6,98 +6,180 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
- 	<changeSet id="create_table_file" author="db_admin">
-        <createTable tableName="file">
+ 	<changeSet id="create_table_status" author="db_admin">
+        <createTable tableName="status">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="ext" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
              <column name="name" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="slidealbum_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
     
-    <changeSet id="create_table_slidealbum" author="db_admin">
-        <createTable tableName="slidealbum">
+    <changeSet id="create_table_gate" author="db_admin">
+        <createTable tableName="gate">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="title" type="varchar(255)">
+             <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-             <column name="customer" type="varchar(255)">
+             <column name="coordinates" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="svg" type="varchar(255)">
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="create_table_plane" author="db_admin">
+        <createTable tableName="plane">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="key" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="position" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="priority" type="varchar(255)">
             	<constraints nullable="false"/>
             </column>
-            <column name="modificationDate" type="bigint">
-            	<constraints nullable="false"/>
-            </column>
-            <column name="locked" type="varchar(255)" />
+            <column name="heading" type="bigint" />
+            <column name="destination" type="varchar(255)" />
+            <column name="gate" type="bigint" />
+            <column name="status" type="bigint" />
         </createTable>
     </changeSet>   
     
-    <changeSet id="fk_file_slidealbum" author="db_admin">
-        <addForeignKeyConstraint baseColumnNames="slidealbum_id"
-            baseTableName="file"
-            constraintName="fk_file_slidealbum"
+    <changeSet id="fk_status_plane" author="db_admin">
+        <addForeignKeyConstraint baseColumnNames="status"
+            baseTableName="plane"
+            constraintName="fk_status_plane"
             onDelete="CASCADE"
             onUpdate="RESTRICT"
             referencedColumnNames="id"
-            referencedTableName="slidealbum"/>
+            referencedTableName="status"/>
     </changeSet> 
     
-	<changeSet id="insert_slidealbum_1" author="db_admin">
+    <changeSet id="fk_gate_plane" author="db_admin">
+        <addForeignKeyConstraint baseColumnNames="gate"
+            baseTableName="plane"
+            constraintName="fk_gate_plane"
+            onDelete="CASCADE"
+            onUpdate="RESTRICT"
+            referencedColumnNames="id"
+            referencedTableName="gate"/>
+    </changeSet> 
+    
+    <changeSet id="insert_gate_1" author="db_admin">
 	    <insert dbms="h2, oracle"
-	            tableName="slidealbum">
-	        <column name="title" type="varchar(255)" value="1234"/>
-	        <column name="customer" type="varchar(255)" value="Bosch"/>
-	        <column name="svg" type="varchar(255)" value="Anti-lock Brake System (ABS)_01"/>
-	        <column name="modificationDate" type="bigint" value="1476730042431"/>
+	            tableName="gate">
+	        <column name="name" type="varchar(255)" value="A1"/>
+	        <column name="coordinates" type="varchar(255)" value="135x530"/>
 	    </insert>
 	</changeSet>
 	
-	<changeSet id="insert_file_1" author="db_admin">
+	 <changeSet id="insert_gate_2" author="db_admin">
 	    <insert dbms="h2, oracle"
-	            tableName="file">
-	        <column name="name" type="varchar(255)" value="Anti-lock Brake System (ABS)_01"/>
-	        <column name="ext" type="varchar(255)" value="svg"/>
-	        <column name="slidealbum_id" type="bigint" value="1"/>
-	    </insert>
-	</changeSet>
-
-	<changeSet id="insert_slidealbum_2" author="db_admin">
-	    <insert dbms="h2, oracle"
-	            tableName="slidealbum">
-	        <column name="title" type="varchar(255)" value="4567"/>
-	        <column name="customer" type="varchar(255)" value="Harley Davidson"/>
-	        <column name="svg" type="varchar(255)" value="Anti-lock Brake System (ABS)_01"/>
-	        <column name="modificationDate" type="bigint" value="1475744848984"/>
+	            tableName="gate">
+	        <column name="name" type="varchar(255)" value="B1"/>
+	        <column name="coordinates" type="varchar(255)" value="558x513"/>
 	    </insert>
 	</changeSet>
 	
-	<changeSet id="insert_file_2_1" author="db_admin">
+	<changeSet id="insert_gate_3" author="db_admin">
 	    <insert dbms="h2, oracle"
-	            tableName="file">
-	        <column name="name" type="varchar(255)" value="Anti-lock Brake System (ABS)_01"/>
-	        <column name="ext" type="varchar(255)" value="svg"/>
-	        <column name="slidealbum_id" type="bigint" value="2"/>
+	            tableName="gate">
+	        <column name="name" type="varchar(255)" value="B2"/>
+	        <column name="coordinates" type="varchar(255)" value="370x540"/>
 	    </insert>
 	</changeSet>
 	
-	<changeSet id="insert_file_2_2" author="db_admin">
+	 <changeSet id="insert_gate_4" author="db_admin">
 	    <insert dbms="h2, oracle"
-	            tableName="file">
-	        <column name="name" type="varchar(255)" value="Anti-lock Brake System (ABS)_01.svg"/>
-	        <column name="ext" type="varchar(255)" value="xml"/>
-	        <column name="slidealbum_id" type="bigint" value="2"/>
+	            tableName="gate">
+	        <column name="name" type="varchar(255)" value="B3"/>
+	        <column name="coordinates" type="varchar(255)" value="228x545"/>
+	    </insert>
+	</changeSet>
+	
+	<changeSet id="insert_status_1" author="db_admin">
+	    <insert dbms="h2, oracle"
+	            tableName="status">
+	        <column name="name" type="varchar(255)" value="Open"/>
+	    </insert>
+	</changeSet>
+	
+	<changeSet id="insert_status_2" author="db_admin">
+	    <insert dbms="h2, oracle"
+	            tableName="status">
+	        <column name="name" type="varchar(255)" value="Landind"/>
+	    </insert>
+	</changeSet>
+	
+	<changeSet id="insert_status_3" author="db_admin">
+	    <insert dbms="h2, oracle"
+	            tableName="status">
+	        <column name="name" type="varchar(255)" value="Landed"/>
+	    </insert>
+	</changeSet>
+	
+	<changeSet id="insert_status_4" author="db_admin">
+	    <insert dbms="h2, oracle"
+	            tableName="status">
+	        <column name="name" type="varchar(255)" value="Closed"/>
+	    </insert>
+	</changeSet>
+	
+	<changeSet id="insert_plane_1" author="db_admin">
+	    <insert dbms="h2, oracle"
+	            tableName="plane">
+	        <column name="key" type="varchar(255)" value="ATC-96"/>
+	        <column name="name" type="varchar(255)" value="DF4788"/>
+	        <column name="position" type="varchar(255)" value="177:294"/>
+	        <column name="heading" type="bigint" value="321"/>
+	        <column name="destination" type="varchar(255)" value="Sofia"/>
+	        <column name="priority" type="varchar(255)" value="Urgent"/>
+	        <column name="type" type="varchar(255)" value="Landing"/>
+	        <column name="status" type="bigint" value="1"/>
+	        <column name="gate" type="bigint" value="2"/>
+	    </insert>
+	</changeSet>
+	
+	<changeSet id="insert_plane_2" author="db_admin">
+	    <insert dbms="h2, oracle"
+	            tableName="plane">
+	        <column name="key" type="varchar(255)" value="ATC-97"/>
+	        <column name="name" type="varchar(255)" value="LL1235"/>
+	        <column name="position" type="varchar(255)" value="222:251"/>
+	        <column name="heading" type="bigint" value="123"/>
+	        <column name="destination" type="varchar(255)" value="Berlin"/>
+	        <column name="priority" type="varchar(255)" value="Normal"/>
+	        <column name="type" type="varchar(255)" value="Landing"/>
+	        <column name="status" type="bigint" value="1"/>
+	        <column name="gate" type="bigint" value="2"/>
+	    </insert>
+	</changeSet>
+	
+	<changeSet id="insert_plane_3" author="db_admin">
+	    <insert dbms="h2, oracle"
+	            tableName="plane">
+	        <column name="key" type="varchar(255)" value="ATC-92"/>
+	        <column name="name" type="varchar(255)" value="ZH2121"/>
+	        <column name="position" type="varchar(255)" value="291:294"/>
+	        <column name="heading" type="bigint" value="321"/>
+	        <column name="destination" type="varchar(255)" value="Paris"/>
+	        <column name="priority" type="varchar(255)" value="Urgent"/>
+	        <column name="type" type="varchar(255)" value="Landing"/>
+	        <column name="status" type="bigint" value="1"/>
+	        <column name="gate" type="bigint" value="3"/>
 	    </insert>
 	</changeSet>
     

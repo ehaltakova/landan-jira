@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+ 	<changeSet id="1" author="admin">
+        <createTable tableName="slidealbumFile">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ext" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+             <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="2" author="admin">
+        <createTable tableName="slidealbum">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+             <column name="customer" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="svg" type="varchar(255)">
+            	<constraints nullable="false"/>
+            </column>
+            <column name="modificationDate" type="bigint">
+            	<constraints nullable="false"/>
+            </column>
+            <column name="files" type="bigint">
+            	<constraints nullable="false"/>
+            </column>
+            <column name="locked" type="boolean" />
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="3" author="admin">
+        <addForeignKeyConstraint baseColumnNames="files"
+            baseTableName="slidealbum"
+            constraintName="fk_slidealbum_slidealbumFile"
+            onDelete="CASCADE"
+            onUpdate="RESTRICT"
+            referencedColumnNames="id"
+            referencedTableName="slidealbumFile"/>
+    </changeSet> 
+    
+    <changeSet author="admin" id="4">
+	    <insert dbms="h2, oracle"
+	            tableName="slidealbumFile">
+	        <column name="name" type="varchar(255)" value="Anti-lock Brake System (ABS)_01"/>
+	        <column name="ext" type="varchar(255)" value="svg"/>
+	    </insert>
+	</changeSet>
+	
+	 <changeSet author="admin" id="5">
+	    <insert dbms="h2, oracle"
+	            tableName="slidealbum">
+	        <column name="title" type="varchar(255)" value="1234"/>
+	        <column name="customer" type="varchar(255)" value="Bosch"/>
+	        <column name="svg" type="varchar(255)" value="Anti-lock Brake System (ABS)_01"/>
+	        <column name="modificationDate" type="bigint" value="1476730042431"/>
+	        <column name="files" type="bigint" value="1"/>
+	    </insert>
+	</changeSet>
+</databaseChangeLog>

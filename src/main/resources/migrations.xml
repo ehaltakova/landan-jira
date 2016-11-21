@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+ 	<changeSet id="create_table_file" author="db_admin">
+        <createTable tableName="file">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="ext" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+             <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slidealbum_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="create_table_slidealbum" author="db_admin">
+        <createTable tableName="slidealbum">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+             <column name="customer" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="svg" type="varchar(255)">
+            	<constraints nullable="false"/>
+            </column>
+            <column name="modificationDate" type="bigint">
+            	<constraints nullable="false"/>
+            </column>
+            <column name="locked" type="varchar(255)" />
+        </createTable>
+    </changeSet>   
+    
+    <changeSet id="fk_file_slidealbum" author="db_admin">
+        <addForeignKeyConstraint baseColumnNames="slidealbum_id"
+            baseTableName="file"
+            constraintName="fk_file_slidealbum"
+            onDelete="CASCADE"
+            onUpdate="RESTRICT"
+            referencedColumnNames="id"
+            referencedTableName="slidealbum"/>
+    </changeSet> 
+    
+	<changeSet id="insert_slidealbum_1" author="db_admin">
+	    <insert dbms="h2, oracle"
+	            tableName="slidealbum">
+	        <column name="title" type="varchar(255)" value="1234"/>
+	        <column name="customer" type="varchar(255)" value="Bosch"/>
+	        <column name="svg" type="varchar(255)" value="Anti-lock Brake System (ABS)_01"/>
+	        <column name="modificationDate" type="bigint" value="1476730042431"/>
+	    </insert>
+	</changeSet>
+	
+	<changeSet id="insert_file_1" author="db_admin">
+	    <insert dbms="h2, oracle"
+	            tableName="file">
+	        <column name="name" type="varchar(255)" value="Anti-lock Brake System (ABS)_01"/>
+	        <column name="ext" type="varchar(255)" value="svg"/>
+	        <column name="slidealbum_id" type="bigint" value="1"/>
+	    </insert>
+	</changeSet>
+
+	<changeSet id="insert_slidealbum_2" author="db_admin">
+	    <insert dbms="h2, oracle"
+	            tableName="slidealbum">
+	        <column name="title" type="varchar(255)" value="4567"/>
+	        <column name="customer" type="varchar(255)" value="Harley Davidson"/>
+	        <column name="svg" type="varchar(255)" value="Anti-lock Brake System (ABS)_01"/>
+	        <column name="modificationDate" type="bigint" value="1475744848984"/>
+	    </insert>
+	</changeSet>
+	
+	<changeSet id="insert_file_2_1" author="db_admin">
+	    <insert dbms="h2, oracle"
+	            tableName="file">
+	        <column name="name" type="varchar(255)" value="Anti-lock Brake System (ABS)_01"/>
+	        <column name="ext" type="varchar(255)" value="svg"/>
+	        <column name="slidealbum_id" type="bigint" value="2"/>
+	    </insert>
+	</changeSet>
+	
+	<changeSet id="insert_file_2_2" author="db_admin">
+	    <insert dbms="h2, oracle"
+	            tableName="file">
+	        <column name="name" type="varchar(255)" value="Anti-lock Brake System (ABS)_01.svg"/>
+	        <column name="ext" type="varchar(255)" value="xml"/>
+	        <column name="slidealbum_id" type="bigint" value="2"/>
+	    </insert>
+	</changeSet>
+    
+</databaseChangeLog>

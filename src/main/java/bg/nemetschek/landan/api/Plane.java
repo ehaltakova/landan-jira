@@ -24,14 +24,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name = "plane")
 
-//@NamedQueries(
-//    {
-//        @NamedQuery(
-//            name = "bg.nemetschek.landan.api.Plane.getPlanes",
-//            query = "SELECT p FROM plane p join status on p.status = status.id join gate on p.gate = gate.id "
-//        )
-//    }
-//)
+@NamedQueries(
+    {
+        @NamedQuery(
+            name = "bg.nemetschek.landan.api.Plane.getPlanes",
+            query = "SELECT p FROM Plane p"
+        )
+    }
+)
 public class Plane {
 
 	@Id
@@ -45,9 +45,6 @@ public class Plane {
 	private String position;
 	@Column(name = "heading", nullable = false)
 	private long heading;
-	@OneToOne(fetch=FetchType.LAZY,optional=false)
-	@JoinColumn(name="gate", referencedColumnName="id")
-	private Gate gate;
 	@OneToOne(fetch=FetchType.LAZY,optional=false)
 	@JoinColumn(name="status", referencedColumnName="id")
 	private Status status;
@@ -101,11 +98,6 @@ public class Plane {
 	}
 	
 	@JsonProperty
-	public Gate getGate() {
-		return gate;
-	}
-	
-	@JsonProperty
 	public Destination getDestination() {
 		return destination;
 	}
@@ -113,6 +105,10 @@ public class Plane {
 	@JsonProperty
 	public Status getStatus() {
 		return status;
+	}
+	
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	/**
@@ -134,68 +130,5 @@ public class Plane {
 	 */
 	public enum Destination {
 		Sofia, Paris, Rome, Berlin, Athens, Philadelphia
-	}
-	
-	/**
-	 * Status class
-	 */
-	@Entity
-	@Table(name = "status")
-	public class Status {
-		
-		@Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-		private long id;
-		@Column(name = "name", nullable = false)
-		private String name;
-		
-		public Status() {
-			super();
-		}
-		
-		@JsonProperty
-		public long getId() {
-			return this.id;
-		}
-		
-		@JsonProperty
-		public String getName() {
-			return this.name;
-		}
-	}
-	
-	/**
-	 * Status class
-	 */
-	@Entity
-	@Table(name = "gate")
-	public class Gate {
-		
-		@Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-		private long id;
-		@Column(name = "name", nullable = false)
-		private String name;
-		@Column(name = "coordinates", nullable = false)
-		private String coordinates;
-		
-		public Gate() {
-			super();
-		}
-		
-		@JsonProperty
-		public long getId() {
-			return this.id;
-		}
-		
-		@JsonProperty
-		public String getName() {
-			return this.name;
-		}
-		
-		@JsonProperty
-		public String getCoordinates() {
-			return this.coordinates;
-		}
 	}
 }

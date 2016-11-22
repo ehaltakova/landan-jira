@@ -53,7 +53,6 @@
             </column>
             <column name="heading" type="bigint" />
             <column name="destination" type="varchar(255)" />
-            <column name="gate" type="bigint" />
             <column name="status" type="bigint" />
         </createTable>
     </changeSet>   
@@ -66,16 +65,6 @@
             onUpdate="RESTRICT"
             referencedColumnNames="id"
             referencedTableName="status"/>
-    </changeSet> 
-    
-    <changeSet id="fk_gate_plane" author="db_admin">
-        <addForeignKeyConstraint baseColumnNames="gate"
-            baseTableName="plane"
-            constraintName="fk_gate_plane"
-            onDelete="CASCADE"
-            onUpdate="RESTRICT"
-            referencedColumnNames="id"
-            referencedTableName="gate"/>
     </changeSet> 
     
     <changeSet id="insert_gate_1" author="db_admin">
@@ -149,7 +138,6 @@
 	        <column name="priority" type="varchar(255)" value="Urgent"/>
 	        <column name="type" type="varchar(255)" value="Landing"/>
 	        <column name="status" type="bigint" value="1"/>
-	        <column name="gate" type="bigint" value="2"/>
 	    </insert>
 	</changeSet>
 	
@@ -164,7 +152,6 @@
 	        <column name="priority" type="varchar(255)" value="Normal"/>
 	        <column name="type" type="varchar(255)" value="Landing"/>
 	        <column name="status" type="bigint" value="1"/>
-	        <column name="gate" type="bigint" value="2"/>
 	    </insert>
 	</changeSet>
 	
@@ -179,7 +166,6 @@
 	        <column name="priority" type="varchar(255)" value="Urgent"/>
 	        <column name="type" type="varchar(255)" value="Landing"/>
 	        <column name="status" type="bigint" value="1"/>
-	        <column name="gate" type="bigint" value="3"/>
 	    </insert>
 	</changeSet>
     

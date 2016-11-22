@@ -26,7 +26,7 @@ database:
   driverClass: org.h2.Driver
   user: admin
   password: admin
-  url: jdbc:h2:./target/salssa-db
+  url: jdbc:h2:./target/landan-db
 
 #metrics:
 #  reporters:

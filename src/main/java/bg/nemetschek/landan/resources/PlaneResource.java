@@ -1,11 +1,14 @@
 package bg.nemetschek.landan.resources;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +38,15 @@ public class PlaneResource {
 		LOGGER.debug("get plane by key: " + key);
 		Plane plane = dao.getPlane(key);
 		return plane;
+	}
+	
+	@POST
+    @Timed
+    @UnitOfWork
+    @Consumes("application/x-www-form-urlencoded")
+    public void changeStatus(MultivaluedMap<String, String> formParams) {
+		LOGGER.debug("update plane status: " + formParams.getFirst("status"));
+		dao.updateStatus(formParams.getFirst("key"), formParams.getFirst("status"));
 	}
 	
 	@GET

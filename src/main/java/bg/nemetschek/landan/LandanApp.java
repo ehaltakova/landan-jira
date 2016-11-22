@@ -7,8 +7,11 @@ import javax.servlet.FilterRegistration;
 
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 
+import bg.nemetschek.landan.api.Gate;
 import bg.nemetschek.landan.api.Plane;
+import bg.nemetschek.landan.api.Status;
 import bg.nemetschek.landan.db.PlanesDAO;
+import bg.nemetschek.landan.resources.GatesResource;
 import bg.nemetschek.landan.resources.PlaneResource;
 import bg.nemetschek.landan.resources.PlanesResource;
 import io.dropwizard.Application;
@@ -45,11 +48,12 @@ public class LandanApp extends Application<LandanAppConfiguration>{
 		// register resources
 		environment.jersey().register(new PlaneResource(dao));
 		environment.jersey().register(new PlanesResource(dao));
+		environment.jersey().register(new GatesResource(dao));
 	}
 	
 	// create a new managed connection pool to the database, a health check for connectivity to the database, 
 	// and a new SessionFactory instance for you to use in the DAO class
-	HibernateBundle<LandanAppConfiguration> hibernateBundle = new HibernateBundle<LandanAppConfiguration>(Plane.class, Plane.Status.class, Plane.Gate.class) { // mapped classes here, not in config!
+	HibernateBundle<LandanAppConfiguration> hibernateBundle = new HibernateBundle<LandanAppConfiguration>(Plane.class, Status.class, Gate.class) { // mapped classes here, not in config!
 		public DataSourceFactory getDataSourceFactory(LandanAppConfiguration configuration) {
 			return configuration.getDataSourceFactory();
 		}

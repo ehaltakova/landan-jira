@@ -1,6 +1,9 @@
 package bg.nemetschek.landan.resources;
 
-import javax.ws.rs.Consumes;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -8,12 +11,15 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bg.nemetschek.landan.api.Plane;
 import bg.nemetschek.landan.db.PlanesDAO;
@@ -42,11 +48,27 @@ public class PlaneResource {
 	
 	@POST
     @Timed
+    @Path("/change")
     @UnitOfWork
-    @Consumes("application/x-www-form-urlencoded")
-    public void changeStatus(MultivaluedMap<String, String> formParams) {
-		LOGGER.debug("update plane status: " + formParams.getFirst("status"));
-		dao.updateStatus(formParams.getFirst("key"), formParams.getFirst("status"));
+    public void changeStatus(String payload) {
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, String> map = new HashMap<String, String>();
+		try {
+			map = mapper.readValue(payload, new TypeReference<Map<String, String>>(){});
+			String key = map.get("key");
+			String status = map.get("status");
+			dao.updateStatus(key, status);
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@GET

@@ -109,7 +109,7 @@
 	<changeSet id="insert_status_2" author="db_admin">
 	    <insert dbms="h2, oracle"
 	            tableName="status">
-	        <column name="name" type="varchar(255)" value="Landind"/>
+	        <column name="name" type="varchar(255)" value="Landing"/>
 	    </insert>
 	</changeSet>
 	

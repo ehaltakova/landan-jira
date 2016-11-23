@@ -44,4 +44,9 @@ public class PlanesDAO extends AbstractDAO<Plane> {
 	public List<Gate> getGates() {
 		return namedQuery("bg.nemetschek.landan.api.Gate.getGates").list();
 	}
+	
+	public Status getStatusByName(String statusName) {
+		Object result = namedQuery("bg.nemetschek.landan.api.Status.getStatusbyName").setParameter("statusName", statusName).uniqueResult();
+		return (Status) result;
+	}
 }
